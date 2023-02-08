@@ -154,7 +154,11 @@ void showBoard (int board[8][8]) {
 		printf("%d ", i); 
 		for (int j = 0; j < 8; j++) {
 			if (board[i][j] == 0) {
-				printf(" ");
+				if ((i + j) % 2 == 0) {
+					printf(" ");
+				} else {
+					printf("▒");
+				}
 			} else if (board[i][j] == 1) {
 				printf("♔");
  			} else if (board[i][j] == 2) {
@@ -300,15 +304,16 @@ bool isValidMove (int x1, int x2, int y1, int y2, int board[8][8]) {
 	return false;
 =======
 	printf("Initializing Board...")	;
-	int board [8][8]  = { {5, 4, 3, 1, 2, 3, 4, 5}
- 				        , {6, 6, 6, 6, 6, 6, 6, 6}
- 				 	    , {0, 0, 0, 0, 0, 0, 0, 0}
- 					    , {0, 0, 0, 0, 0, 0, 0, 0}
- 				        , {0, 0, 0, 0, 0, 0, 0, 0} 
- 				        , {0, 0, 0, 0, 0, 0, 0, 0}
- 				        , {6, 6, 6, 6, 6, 6, 6, 6}
-				        , {5, 4, 3, 1, 2, 3, 4, 5}
-				        } ;
+	int board [8][9]  = { {5, 4, 3, 1, 2, 3, 4, 5}
+				       , {6, 6, 6, 6, 6, 6, 6, 6}
+				 	   , {0, 0, 0, 0, 0, 0, 0, 0}
+					   , {0, 0, 0, 0, 0, 0, 0, 0}
+				 	   , {0, 0, 0, 0, 0, 0, 0, 0}
+				       , {0, 0, 0, 0, 0, 0, 0, 0} 
+				       , {0, 0, 0, 0, 0, 0, 0, 0}
+				       , {6, 6, 6, 6, 6, 6, 6, 6}
+				       , {5, 4, 3, 1, 2, 3, 4, 5}
+				       } ;
 	printf("Board Initialized!") ;
 	
 	showBoard(board);
