@@ -21,6 +21,45 @@ void makeMove (char* input, int board[8][8]) {
 	
 	board[end_x][end_y] = board[start_x][start_y];
 }
+void showBoard (int board[8][8]) {
+	printf("\n\n┌─┬─┬─┬─┬─┬─┬─┬─┐\n");
+	for (int i = 0; i < 8; i++) {
+//		printf("│"); 
+		bool flag = true;
+		for (int j = 0; j < 8; j++) {
+			if (!flag) {
+				printf("│"); 
+			}
+			flag = false;
+//			printf(""); 
+			switch (board[i][j]) {
+				case 0: 
+					printf(" ");
+					break;
+				case 1:
+					printf("♔");
+					break;
+				case 2: 
+					printf("♕");
+					break;
+				case 3: 
+					printf("♗");
+					break;
+				case 4: 
+					printf("♘");
+					break;
+				case 5: 
+					printf("♙");
+			}
+		}
+		printf("│\n") ;
+		if (i < 7) {
+			printf("├─┼─┼─┼─┼─┼─┼─┼─┤\n") ;
+		}
+	}
+	printf("└─┴─┴─┴─┴─┴─┴─┴─┘\n");
+}
+
 
 int main () {
 	printf("Welcome to Terminal Chess!\n");
@@ -141,5 +180,3 @@ bool isValidMove (int x1, int x2, int y1, int y2, int board[8][8]) {
 		}
 	}
 	return false;
-
-}
