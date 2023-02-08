@@ -1,4 +1,5 @@
 #include <stdio.h>
+<<<<<<< HEAD
 #include <stdbool.h>
 #include <stdlib.h>
 
@@ -143,6 +144,33 @@ void showBoard (int board[8][8]) {
 		if (i < 7) {
 			printf("├─┼─┼─┼─┼─┼─┼─┼─┤\n") ;
 		}
+=======
+
+
+// ♔ ♕ ♖ ♗ ♘ ♙
+void showBoard (int board[8][8]) {
+	printf("\n\n  01234567\n");
+	for (int i = 0; i < 8; i++) {
+		printf("%d ", i); 
+		for (int j = 0; j < 8; j++) {
+			if (board[i][j] == 0) {
+				printf(" ");
+			} else if (board[i][j] == 1) {
+				printf("♔");
+ 			} else if (board[i][j] == 2) {
+				printf("♕");
+			} else if (board[i][j] == 3) {
+				printf("♗");
+			} else if (board[i][j] == 4) {
+				printf("♘");
+			} else if (board[i][j] == 5) {
+				printf("♖");
+			} else if (board[i][j] == 6) {
+				printf("♙");
+			}
+		}
+		printf("\n");
+>>>>>>> origin/coordinates
 	}
 	printf("└─┴─┴─┴─┴─┴─┴─┴─┘\n");
 	board[end_x][end_y] = board[start_x][start_y];
@@ -152,6 +180,7 @@ void showBoard (int board[8][8]) {
 
 int main () {
 	printf("Welcome to Terminal Chess!\n");
+<<<<<<< HEAD
 	printf("Initializing Board...\n")	;
 	int board [8][8] = { {5, 4, 3, 1, 2, 3, 4, 5}
 				             , {6, 6, 6, 6, 6, 6, 6, 6}
@@ -269,3 +298,25 @@ bool isValidMove (int x1, int x2, int y1, int y2, int board[8][8]) {
 		}
 	}
 	return false;
+=======
+	printf("Initializing Board...")	;
+	int board [8][8]  = { {5, 4, 3, 1, 2, 3, 4, 5}
+ 				        , {6, 6, 6, 6, 6, 6, 6, 6}
+ 				 	    , {0, 0, 0, 0, 0, 0, 0, 0}
+ 					    , {0, 0, 0, 0, 0, 0, 0, 0}
+ 				        , {0, 0, 0, 0, 0, 0, 0, 0} 
+ 				        , {0, 0, 0, 0, 0, 0, 0, 0}
+ 				        , {6, 6, 6, 6, 6, 6, 6, 6}
+				        , {5, 4, 3, 1, 2, 3, 4, 5}
+				        } ;
+	printf("Board Initialized!") ;
+	
+	showBoard(board);
+	
+	// rest of game...
+	
+	printf("Terminating...");
+	
+}
+
+>>>>>>> origin/coordinates
