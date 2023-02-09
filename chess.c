@@ -92,7 +92,7 @@ bool isValidMove (char* input, int board[8][8]) {
 				if (xcheck < 0 || ycheck < 0 || xcheck > 7 || ycheck > 7) {
 					break;
 				}
-				if (board[xcheck][ycheck] != 0) {
+				if (board[ycheck][xcheck] != 0) {
 					piecesInWay += 1;
 				} 
 				if (piecesInWay == 2) {
@@ -140,7 +140,7 @@ bool isValidMove (char* input, int board[8][8]) {
 		 	if (xcheck < 0 || ycheck < 0 || xcheck > 7 || ycheck > 7) {
 				break;
 			}
-			if (board[xcheck][ycheck] != 0) {
+			if (board[ycheck][xcheck] != 0) {
 				piecesInWay += 1;
 			} 
 			if (piecesInWay == 2) {
@@ -174,7 +174,7 @@ bool isValidMove (char* input, int board[8][8]) {
 		 	if (xcheck < 0 || ycheck < 0 || xcheck > 7 || ycheck > 7) {
 				break;
 			}
-			if (board[xcheck][ycheck] != 0) {
+			if (board[ycheck][xcheck] != 0) {
 				piecesInWay += 1;
 			} 
 			if (piecesInWay == 2) {
@@ -186,15 +186,15 @@ bool isValidMove (char* input, int board[8][8]) {
 		}
 		case 6 : // Pawn
   		if (start_y - end_y == 1 && start_x== end_x) { // forward one
-  			if (board[start_x][end_y] == 0) {
+  			if (board[end_y][end_x] == 0) {
   				return true;
   			}
   	} else if (start_y - end_y == 2 && start_x == end_x) { // forward two
-  			if (board[start_x][end_y] == 0 && board[start_x][end_y+1] == 0) {
+  			if (board[end_y][end_x] == 0 && board[end_y-1][end_x] == 0) {
   				return true;
   			}
   	} else if ((abs(start_x - end_x) == 1) && (start_y-end_y == 1)) { // capture left or right
-  			if (board[end_x][end_y] != 0) {
+  			if (board[end_y][end_x] != 0) {
   				return true;
   			}
 	  }
@@ -250,3 +250,4 @@ int main () {
     
 	printf("Terminating...\n") ;
 }
+
