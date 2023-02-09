@@ -3,9 +3,6 @@
 #include <stdlib.h>
 
 void showBoard (int board[8][8]) {
-	printf("\n\n╔════════╗\n");
-	for (int i = 0; i < 8; i++) {
-		printf("║"); 
 	printf("\n\n┌─┬─┬─┬─┬─┬─┬─┬─┐\n");
 	for (int i = 0; i < 8; i++) {
 //		printf("│"); 
@@ -36,16 +33,12 @@ void showBoard (int board[8][8]) {
 					printf("♙");
 			}
 		}
-		printf("║\n") ;
-	}
-	printf("╚════════╝\n");
 		printf("│\n") ;
 		if (i < 7) {
 			printf("├─┼─┼─┼─┼─┼─┼─┼─┤\n") ;
 		}
 	}
 	printf("└─┴─┴─┴─┴─┴─┴─┴─┘\n");
-}
 
 
 //bool memberOf (int *ValidMoves[2], int x, int y) ; 
