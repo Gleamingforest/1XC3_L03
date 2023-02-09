@@ -44,7 +44,7 @@ void showBoard (int board[8][8]) {
 	}printf(" ╚════════════════╝\n");
 }
 
-//bool memberOf (int *ValidMoves[2], int x, int y) ; 
+bool memberOf (int *ValidMoves[2], int x, int y) ; 
 
 void makeMove (char* input, int board[8][8]) {
 	int start_y = input[0] - 48;
@@ -57,11 +57,10 @@ void makeMove (char* input, int board[8][8]) {
 }
 
 bool isValidMove (char* input, int board[8][8]) {
-	int start_y = input[0] - 48;
-	int start_x = input[1] - 48;
-	int end_y = input[3] - 48;
-	int end_x = input[4] - 48;
-	
+  int start_x = input[0] - 48;
+	int start_y = input[1] - 48;
+	int end_x = input[3] - 48;
+	int end_y = input[4] - 48;
 	// out of bounds check
 	if (start_x > 7 || start_x < 0) {
 		return false;
@@ -78,11 +77,13 @@ bool isValidMove (char* input, int board[8][8]) {
 	int xcheck = start_x;
 	int ycheck = start_y;
 	int piecesInWay = 0;
-	switch (board[start_x][start_y]) {
+	switch (board[start_y][start_x]) {
 		case 0: // moving a blank spot is never valid
 			return false;
-		case 1: // King
-			break;
+		case 1:  //king
+		  if (abs(start_x - end_x) <= 1 && abs(start_y-end_y) <= 1) {
+			return true;}
+		
 		case 2: // Queen
 		//printf("Queen Selected\n");
 			while (true) {
@@ -133,21 +134,78 @@ bool isValidMove (char* input, int board[8][8]) {
 			}	
 			break;
 		case 3 : // Bishop
-			break;
-		case 4 : // Knight
-			break;
+			while (true) {
+			xcheck += (start_x > end_x)? -1 : 1;
+			ycheck += (start_y > end_y)? -1 : 1;
+		 	if (xcheck < 0 || ycheck < 0 || xcheck > 7 || ycheck > 7) {
+				break;
+			}
+			if (board[xcheck][ycheck] != 0) {
+				piecesInWay += 1;
+			} 
+			if (piecesInWay == 2) {
+				break;
+			}
+			if (xcheck == end_x && ycheck == end_y) {
+				return true;
+			}}
+		
+    case 4 : // Knight
+
+  		if (abs(start_x - end_x) == 1) {
+  			if (abs(start_y - end_y) == 2) {
+  				return true;
+  			}
+  		} else if (abs(start_x - end_x) == 2) {
+  			if (abs(start_y - end_y) == 1) {
+  				return true;}}
+			
+			;
 		case 5 : // Rook
-			break;
+			while (true) {
+			if (start_y == end_y) {
+				xcheck += (start_x > end_x)? -1 : 1;
+			} else if (start_x == end_x) {
+				ycheck += (start_y > end_y)? -1 : 1;
+			} else {
+				return false;
+			}
+			
+		 	if (xcheck < 0 || ycheck < 0 || xcheck > 7 || ycheck > 7) {
+				break;
+			}
+			if (board[xcheck][ycheck] != 0) {
+				piecesInWay += 1;
+			} 
+			if (piecesInWay == 2) {
+				break;
+			}
+			if (xcheck == end_x && ycheck == end_y) {
+				return true;
+			}
+		}
 		case 6 : // Pawn
-			break;
-	}
-	/*
-	if (!memberOf(validMoves, end_x, end_y)) {
+  		if (start_y - end_y == 1 && start_x== end_x) { // forward one
+  			if (board[start_x][end_y] == 0) {
+  				return true;
+  			}
+  	} else if (start_y - end_y == 2 && start_x == end_x) { // forward two
+  			if (board[start_x][end_y] == 0 && board[start_x][end_y+1] == 0) {
+  				return true;
+  			}
+  	} else if ((abs(start_x - end_x) == 1) && (start_y-end_y == 1)) { // capture left or right
+  			if (board[end_x][end_y] != 0) {
+  				return true;
+  			}
+	  }
+	
+    }
+
 		return false;
-	}
-	*/
-	return true;
+	
+
 }
+
 
 
 
@@ -155,27 +213,26 @@ int main () {
 	printf("Welcome to Terminal Chess!\n");
 	printf("Initializing Board...\n")	;
 	int board [8][8] = { {5, 4, 3, 2, 1, 3, 4, 5}
-				       , {6, 6, 6, 6, 6, 6, 6, 6}
-				 	   , {0, 0, 0, 0, 0, 0, 0, 0}
-					   , {0, 0, 0, 0, 0, 0, 0, 0}
-				       , {0, 0, 0, 0, 0, 0, 0, 0} 
-					   , {0, 0, 0, 0, 0, 0, 0, 0}
-					   , {6, 6, 6, 6, 6, 6, 6, 6}
-					   , {5, 4, 3, 2, 1, 3, 4, 5}
+				             , {6, 6, 6, 6, 6, 6, 6, 6}
+				 	           , {0, 0, 0, 0, 0, 0, 0, 0}
+					           , {0, 0, 0, 0, 0, 0, 0, 0}
+				             , {0, 0, 0, 0, 0, 0, 0, 0} 
+				             , {0, 0, 0, 0, 0, 0, 0, 0}
+				             , {6, 6, 6, 6, 6, 6, 6, 6}
+				             , {5, 4, 3, 2, 1, 3, 4, 5}
 				             } ;
   char buf[100];
   bool whitesMove = true;
 	printf("Board Initialized!\n") ;
 	
-  
 
   printf("Enter `q` to quit at any time.\n");
   printf("Moves are entered as co-ordinate pairs, such as \"13-33\" \n");
-  showBoard(board);
   do {
-    bool flag = false;  
+    bool flag = false; 
+    showBoard(board);
     do {
-		if (flag) {
+	if (flag) {
 		printf("Move Invalid! Try again!");
 	}
     	if (whitesMove) {
@@ -186,12 +243,10 @@ int main () {
     	printf("♔ >> ");
 	scanf("%s", buf);
 	flag = true;
-    }
-	while (!isValidMove(buf, board) && (buf[0] != 'q' )&& buf[0] != 'Q');
+    } while (!isValidMove(buf, board) && buf[0] != 'q' && buf[0] != 'Q');
     makeMove(buf, board);
+	whitesMove = !whitesMove;
   } while (buf[0] != 'q' && buf[0] != 'Q') ;
     
 	printf("Terminating...\n") ;
 }
-
-
